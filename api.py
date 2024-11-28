@@ -132,25 +132,27 @@ async def read_documents():
     return [serialize_document(doc) for doc in documents]
 
 
-@app.get("/documents/{document_id}")
-async def read_document(document_id: str):
+@app.get("/documents/{uid}")
+async def read_document(uid: str):
     """Read a document by ID."""
-    doc = collection.find_one({"uid": document_id})
+    doc = collection.find_one({"uid": uid})
     if not doc:
         raise HTTPException(status_code=404, detail="Document not found")
     return serialize_document(doc)
 
-@app.put("/documents/{document_id}", response_model=dict)
-async def update_document(document_id: str, updated_fields: dict):
+@app.put("/documents/{uid}")
+async def update_document(uid: str, updated_fields: TextContent):
     """Update a document by ID."""
+    updated_fields = json.loads(updated_fields.content)
     update_data = {k: v for k, v in updated_fields.items() if v is not None}
     result = collection.update_one(
-        {"_id": ObjectId(document_id)},
+        {"uid": uid},
         {"$set": update_data}
     )
+    doc = collection.find_one({'uid': uid})
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Document not found")
-    return {"message": "Document updated", "modified_count": result.modified_count}
+    return serialize_document(doc)
 
 @app.delete("/documents/{document_id}", response_model=dict)
 async def delete_document(document_id: str):
