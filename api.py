@@ -14,6 +14,8 @@ import uuid
 from datetime import datetime
 import random
 import string
+from fastapi.middleware.cors import CORSMiddleware
+
 
 def generate_random_id():
     """Generate a 16-character random alphanumeric string starting with 'cs'."""
@@ -36,6 +38,15 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # For frontend development
+    allow_credentials=True,  # If you need cookies or authentication
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Initialize Groq client
 groq_api_key = os.environ.get("GROQ_API_KEY")
