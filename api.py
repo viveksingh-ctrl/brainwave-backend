@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, HTTPException, Header, Request
 from pydantic import BaseModel
 from groq import Groq
 from dotenv import load_dotenv
@@ -8,7 +8,24 @@ from prompts import SUMMARIZE, BRAINSTORM
 import asyncio
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import json
 from typing import List, Dict
+import uuid 
+
+import random
+import string
+
+def generate_random_id():
+    """Generate a 16-character random alphanumeric string starting with 'cs'."""
+    prefix = "cs"
+    remaining_length = 16 - len(prefix)
+    random_part = ''.join(random.choices(string.ascii_letters + string.digits, k=remaining_length))
+    return prefix + random_part
+
+# Example usage
+print(generate_random_id())
+
+
 # MongoDB Configuration
 MONGO_URI = "mongodb://localhost:27017/"
 DATABASE_NAME = "test_db"
@@ -97,12 +114,20 @@ async def chat(request: ChatRequest):
     # Return a streaming response
     return StreamingResponse(stream_groq_response(message_), media_type="text/plain")
 
+class TextContent(BaseModel):
+    content: str
 
-@app.post("/documents/", response_model=dict)
-async def create_document(document: dict):
+
+@app.post("/documents")
+async def create_document(request: Request, item: TextContent):
     """Create a new document."""
-    result = collection.insert_one(document.dict())
-    return 'done'
+    document = json.loads(item.content)
+    uid = generate_random_id()
+    document['uid'] = uid
+    collection.insert_one(document)
+    result_ = dict(collection.find_one({"uid": uid}))
+    result_["_id"] = str(result_["_id"])
+    return json.dumps(result_)
 
 @app.get("/documents/", response_model=List[dict])
 async def read_documents():
