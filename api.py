@@ -4,8 +4,8 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 from fastapi.responses import StreamingResponse
-from extras import BLOG_CONTENT_TYPE
-from prompts import ENTRY_MAPPER, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
+from extras import BLOG_CONTENT_TYPE, RTE_CONTENT
+from prompts import ENTRY_MAPPER, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
 import asyncio
 from pymongo import MongoClient
 import json
@@ -274,10 +274,15 @@ INPUT_ = content_model = {
 class TextContent(BaseModel):
     content: str
 
+@app.post('/generate-rte')
+async def generate_rte(request: ChatRequest):
+    prompt = GENERATE_RTE.format(json_rte = json.dumps(RTE_CONTENT))
+    response = llm.answer(query = prompt, model = 'gpt-4o')
+    return StreamingResponse(async_streamer(response), media_type="text/plain")
+
 @app.post("/generate-from-template")
 async def mapper(request: ChatRequest):
     prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
-    print(prompt)
     response = llm.answer(query = prompt, model = 'gpt-4o')
     return StreamingResponse(async_streamer(response), media_type="text/plain")
 

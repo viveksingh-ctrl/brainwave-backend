@@ -2,6 +2,9 @@ import os
 import json 
 import requests
 from fastapi import Response
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class ChatGPTLLM:
     def __init__(self):

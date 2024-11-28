@@ -1,5 +1,5 @@
 fastapi
 groq
+python-dotenv
 pymongo
 typing_extensions
-python-dotenv

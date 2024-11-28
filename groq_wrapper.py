@@ -19,10 +19,10 @@ stream = client.chat.completions.create(
         #     "content": "you are a helpful assistant."
         # },
         # Set a user message for the assistant to respond to.
-        # {
-        #     "role": "user",
-        #     "content": "Explain the importance of fast language models",
-        # }
+        {
+            "role": "user",
+            "content": "",
+        }
     ],
 
     # The language model which will generate the completion.
