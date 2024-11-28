@@ -20,6 +20,7 @@ from llm import ChatGPTLLM
 
 DB_2 = 'TEST_CM'
 COLLECTION_NAME_2 = 'TEST'
+
 MONGO_URI = "mongodb://localhost:27017/"
 client = MongoClient(MONGO_URI)
 db2 = client[DB_2]
@@ -38,9 +39,6 @@ def generate_random_id():
 MONGO_URI = "mongodb://localhost:27017/"
 DATABASE_NAME = "test_db"
 COLLECTION_NAME = "test_collection"
-
-DB_2 = 'TEST_CM'
-COLLECTION_NAME_2 = 'TEST'
 # Initialize MongoDB Client
 client = MongoClient(MONGO_URI)
 db = client[DATABASE_NAME]
