@@ -133,7 +133,7 @@ async def create_document(request: Request, item: TextContent):
     collection.insert_one(document)
     result_ = dict(collection.find_one({"uid": uid}))
     result_["_id"] = str(result_["_id"])
-    return json.dumps(result_)
+    return result_
 
 @app.get("/documents", response_model=List[dict])
 async def read_documents():
