@@ -22,10 +22,6 @@ def generate_random_id():
     random_part = ''.join(random.choices(string.ascii_letters + string.digits, k=remaining_length))
     return prefix + random_part
 
-# Example usage
-print(generate_random_id())
-
-
 # MongoDB Configuration
 MONGO_URI = "mongodb://localhost:27017/"
 DATABASE_NAME = "test_db"
@@ -129,17 +125,17 @@ async def create_document(request: Request, item: TextContent):
     result_["_id"] = str(result_["_id"])
     return json.dumps(result_)
 
-@app.get("/documents/", response_model=List[dict])
+@app.get("/documents", response_model=List[dict])
 async def read_documents():
     """Read all documents."""
     documents = collection.find()
     return [serialize_document(doc) for doc in documents]
 
 
-@app.get("/documents/{document_id}", response_model=dict)
+@app.get("/documents/{document_id}")
 async def read_document(document_id: str):
     """Read a document by ID."""
-    doc = collection.find_one({"_id": ObjectId(document_id)})
+    doc = collection.find_one({"uid": document_id})
     if not doc:
         raise HTTPException(status_code=404, detail="Document not found")
     return serialize_document(doc)
