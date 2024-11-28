@@ -16,7 +16,6 @@ import random
 import string
 from fastapi.middleware.cors import CORSMiddleware
 
-
 def generate_random_id():
     """Generate a 16-character random alphanumeric string starting with 'cs'."""
     prefix = "cs"
@@ -47,7 +46,6 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers
 )
-
 # Initialize Groq client
 groq_api_key = os.environ.get("GROQ_API_KEY")
 if not groq_api_key:
@@ -140,7 +138,7 @@ async def create_document(request: Request, item: TextContent):
 @app.get("/documents", response_model=List[dict])
 async def read_documents():
     """Read all documents."""
-    documents = collection.find()
+    documents = collection.find().sort("last_updated", -1)
     return [serialize_document(doc) for doc in documents]
 
 
