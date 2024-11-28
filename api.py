@@ -283,7 +283,7 @@ async def generate_rte(request: ChatRequest):
 @app.post("/generate-from-template")
 async def mapper(request: ChatRequest):
     prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
-    response = llm.answer(query = prompt, model = 'gpt-4o')
+    response = llm.answer(query = prompt, model = 'gpt-4')
     return StreamingResponse(async_streamer(response), media_type="text/plain")
 
 message_ = {
