@@ -154,10 +154,10 @@ async def update_document(uid: str, updated_fields: TextContent):
         raise HTTPException(status_code=404, detail="Document not found")
     return serialize_document(doc)
 
-@app.delete("/documents/{document_id}", response_model=dict)
-async def delete_document(document_id: str):
+@app.delete("/documents/{uid}")
+async def delete_document(uid: str):
     """Delete a document by ID."""
-    result = collection.delete_one({"_id": ObjectId(document_id)})
+    result = collection.delete_one({"uid": uid})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Document not found")
     return {"message": "Document deleted"}
