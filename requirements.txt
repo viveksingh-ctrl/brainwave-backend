@@ -1,0 +1,5 @@
+fastapi
+groq
+pymongo
+typing_extensions
+python-dotenv
