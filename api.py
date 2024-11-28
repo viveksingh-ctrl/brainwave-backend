@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 import json
 from typing import List, Dict
 import uuid 
-
+from datetime import datetime
 import random
 import string
 
@@ -120,6 +120,7 @@ async def create_document(request: Request, item: TextContent):
     document = json.loads(item.content)
     uid = generate_random_id()
     document['uid'] = uid
+    document['last_updated'] = str(datetime.now())
     collection.insert_one(document)
     result_ = dict(collection.find_one({"uid": uid}))
     result_["_id"] = str(result_["_id"])
@@ -145,6 +146,7 @@ async def update_document(uid: str, updated_fields: TextContent):
     """Update a document by ID."""
     updated_fields = json.loads(updated_fields.content)
     update_data = {k: v for k, v in updated_fields.items() if v is not None}
+    update_data['last_updated'] = str(datetime.now())
     result = collection.update_one(
         {"uid": uid},
         {"$set": update_data}
