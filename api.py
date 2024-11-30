@@ -16,7 +16,7 @@ import random
 import string
 from fastapi.middleware.cors import CORSMiddleware
 from llm import ChatGPTLLM
-
+import time
 
 DB_2 = 'TEST_CM'
 COLLECTION_NAME_2 = 'TEST'
@@ -282,9 +282,14 @@ async def generate_rte(request: ChatRequest):
 
 @app.post("/generate-from-template")
 async def mapper(request: ChatRequest):
-    prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
-    response = llm.answer(query = prompt, model = 'gpt-4')
-    return StreamingResponse(async_streamer(response), media_type="text/plain")
+    time.sleep(10)
+    # prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
+    # response = llm.answer(query = prompt, model = 'gpt-4')
+    with open('./rte_ai.json', 'r') as f:
+        data = json.load(f)
+    return data
+    
+    # return StreamingResponse(async_streamer(response), media_type="text/plain")
 
 message_ = {
             "type": "doc",

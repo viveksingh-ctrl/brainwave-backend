@@ -1,0 +1,572 @@
+{
+"uid": "d49b6c9c06a2405a88fbc101ba39fdae",
+"type": "doc",
+"attrs": {},
+"children": [
+{
+"uid": "31ca4eaae70148a2bff0c7d2aa6e57d7",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Title"
+}
+]
+},
+{
+"uid": "c65a87bf010b48a19c7473bc483563e7",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Artificial Intelligence: The Future of Technology"
+}
+]
+},
+{
+"uid": "35cd879a52bb4aaf8f4c5bc9e5056bdc",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "URL"
+}
+]
+},
+{
+"uid": "a4eccc6308e44fb68159c82afa122e1d",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "/artificial-intelligence-the-future-of-technology"
+}
+]
+},
+{
+"uid": "1c34b8017c734829900093caad82ecfe",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Date"
+}
+]
+},
+{
+"uid": "ea12a44b4b0e4ddab5c3014e334f19ff",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "2024-11-28T00:00:00Z"
+}
+]
+},
+{
+"uid": "651cc0134a5f4d02a60447ac14ece121",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Featured Image"
+}
+]
+},
+{
+"uid": "ccd8b15ede074841a6dddd16ea4cb6e9",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Image URL",
+"bold": true
+},
+{
+"text": ": "
+},
+{
+"type": "a",
+"attrs": {
+"url": "#",
+"dirty": true
+},
+"children": [
+{
+"text": "https://example.com/images/ai-future-technology.jpg"
+}
+],
+"uid": "7170e85e3309450fa622562af52a1029"
+},
+{
+"text": ""
+}
+]
+},
+{
+"uid": "b6f8509d1c6742eb95d904983be6866b",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Body"
+}
+]
+},
+{
+"uid": "8c2d845b51734170a5babe255a2d3d8e",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Artificial Intelligence (AI) is revolutionizing industries and transforming the way we live and work. With applications ranging from healthcare to finance, AI systems are enabling smarter decision-making, automating repetitive tasks, and opening doors to innovation."
+}
+]
+},
+{
+"uid": "0f683fbb036f4059ac9e8591042419be",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Key Highlights:",
+"bold": true
+}
+]
+},
+{
+"uid": "ae946d44b7c8445cbf043016faa6b25d",
+"type": "ul",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "What is AI?",
+"bold": true
+},
+{
+"text": " AI refers to machines mimicking human intelligence to perform tasks and improve their performance through learning."
+}
+],
+"uid": "099220ded9a543148952e3e2aef51050"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Applications of AI:",
+"bold": true
+},
+{
+"text": " Healthcare diagnostics, autonomous vehicles, personalized recommendations, and more."
+}
+],
+"uid": "1bd74104550f46cea3f9de9c02016297"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Challenges:",
+"bold": true
+},
+{
+"text": " Ethical concerns, data privacy, and the need for transparent algorithms."
+}
+],
+"uid": "918c7876ed5b44708e53f05159c1f8e6"
+}
+]
+},
+{
+"uid": "9f38a0f4364a4e8aac3012771f4977b3",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Stay tuned to explore how AI will shape our world in the coming decades."
+}
+]
+},
+{
+"uid": "0d4e01a1b8994822ba7b5a9ec627606e",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Related Post"
+}
+]
+},
+{
+"uid": "384aec1f4d524dd9932b41e98ef22bd4",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Artificial Intelligence in Healthcare: Revolutionizing Patient Care"
+}
+]
+},
+{
+"uid": "bf37170efdd54eb09d4ba6560728b728",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Is Archived?"
+}
+]
+},
+{
+"uid": "d3dbd68cd06e48aebf346234822421a3",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "False"
+}
+]
+},
+{
+"uid": "143d4dd2625b4dc5b38970548daa5b74",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Comments"
+}
+]
+},
+{
+"uid": "472912103b454ac68bd728ce6cccdbc3",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Leave a Reply",
+"bold": true
+},
+{
+"text": ": \"This is such an insightful article on AI! Thank you for sharing.\""
+},
+{
+"text": "\n",
+"break": true
+},
+{
+"text": "Call to Action",
+"bold": true
+},
+{
+"text": ":"
+}
+]
+},
+{
+"uid": "bb04c64e9a794c368612407535c1cbf4",
+"type": "ul",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Title",
+"bold": true
+},
+{
+"text": ": \"Explore More on AI\""
+}
+],
+"uid": "2a06098cb30048ecba81ecf56b2be6ea"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "URL",
+"bold": true
+},
+{
+"text": ": "
+},
+{
+"type": "a",
+"attrs": {
+"url": "#",
+"dirty": true
+},
+"children": [
+{
+"text": "https://example.com/explore-ai"
+}
+],
+"uid": "943583fe53ef487bb1f0f06d3933ad32"
+},
+{
+"text": ""
+}
+],
+"uid": "d6c12758f1e14db0b58b015fb2b2ea80"
+}
+]
+},
+{
+"uid": "a2ced7cf879e4daf87beb1036617f109",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Social Share"
+}
+]
+},
+{
+"uid": "98351b54acac49da887920d1047e4310",
+"type": "ul",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Title",
+"bold": true
+},
+{
+"text": ": Share This Blog"
+}
+],
+"uid": "bcfe9120caab4536a53ad174f64ed9df"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Icon",
+"bold": true
+},
+{
+"text": ": "
+},
+{
+"type": "a",
+"attrs": {
+"url": "#",
+"dirty": true
+},
+"children": [
+{
+"text": "https://example.com/icons/share-icon.png"
+}
+],
+"uid": "1e29641e1d4a45e394e1d807bc2245dc"
+},
+{
+"text": ""
+}
+],
+"uid": "a226898bf9a942f493b00d1da35e321c"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "URL",
+"bold": true
+},
+{
+"text": ": "
+},
+{
+"type": "a",
+"attrs": {
+"url": "#",
+"dirty": true
+},
+"children": [
+{
+"text": "https://example.com/artificial-intelligence-the-future-of-technology"
+}
+],
+"uid": "cb04ce31ba514651b7422f8f9433c8dd"
+},
+{
+"text": ""
+}
+],
+"uid": "3ec4550730194cbf8be986007e388a0a"
+}
+]
+},
+{
+"uid": "aff9adec47874d84aae95ee35b1b41a8",
+"type": "h4",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "SEO"
+}
+]
+},
+{
+"uid": "4dd7b24a65a340268592852ca3753901",
+"type": "ul",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Meta Title",
+"bold": true
+},
+{
+"text": ": Artificial Intelligence: The Future of Technology"
+}
+],
+"uid": "d50d131972f44fe38b6bf4f29e36ce0f"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Meta Description",
+"bold": true
+},
+{
+"text": ": Explore how Artificial Intelligence is transforming industries and driving innovation across the globe."
+}
+],
+"uid": "c40c36f106d04e87b3e8e0fd3799f4d3"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Meta Keywords",
+"bold": true
+},
+{
+"text": ": Artificial Intelligence, AI, Technology, Innovation, Future"
+}
+],
+"uid": "c9453e5113eb45e28c9fbc3e3d488ea4"
+},
+{
+"type": "li",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": "Enable Search Indexing",
+"bold": true
+},
+{
+"text": ": True"
+}
+],
+"uid": "110ddc3f20514a8f8361bfdff9ad32e6"
+}
+]
+},
+{
+"uid": "1afc53ee225947d3998e4e048feb9513",
+"type": "p",
+"attrs": {
+"dirty": true
+},
+"children": [
+{
+"text": ""
+}
+]
+}
+],
+"_version": 1
+}
