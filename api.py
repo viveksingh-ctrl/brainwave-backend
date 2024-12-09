@@ -269,7 +269,8 @@ async def mapper(request: ChatRequest):
     prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = content_type, query = query)
     print(prompt)
     response = llm.answer(query = prompt, model = 'gpt-4-turbo')
-    return StreamingResponse(async_streamer(response), media_type="text/plain")    
+    return response
+    # return StreamingResponse(async_streamer(response), media_type="text/plain")    
     # return StreamingResponse(async_streamer(response), media_type="text/plain")
 
 message_ = {
