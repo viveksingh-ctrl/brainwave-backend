@@ -2,9 +2,6 @@ import os
 import json 
 import requests
 from fastapi import Response
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class ChatGPTLLM:
     def __init__(self):
@@ -32,7 +29,7 @@ class ChatGPTLLM:
                 "model": model,
                 "messages": [{"role": "user", "content": query}],
                 "temperature": 0,
-                "max_tokens": 3000,
+                "max_tokens": 4096,
                 "stream": True,
                 "top_p": None,
             }
