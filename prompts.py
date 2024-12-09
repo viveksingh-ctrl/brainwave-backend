@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, Header, Request
 from pydantic import BaseModel
-from groq import Groq
 from dotenv import load_dotenv
 import os
 from fastapi.responses import StreamingResponse
@@ -60,17 +59,13 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers
 )
-# Initialize Groq client
-groq_api_key = os.environ.get("GROQ_API_KEY")
-if not groq_api_key:
-    raise ValueError("GROQ_API_KEY is not set in the environment")
+
 
 def serialize_document(doc):
     """Convert MongoDB document to JSON serializable format."""
     doc["_id"] = str(doc["_id"])
     return doc
 
-client = Groq(api_key=groq_api_key)
 
 # Define request body structure
 class ChatRequest(BaseModel):
@@ -78,30 +73,7 @@ class ChatRequest(BaseModel):
     query: str
 
 # Define a generator function for streaming the response
-async def stream_groq_response(message: str, action: str = Header('summarize')):
-    try:
-        # Create a chat completion request to Groq
-        stream = client.chat.completions.create(
-            messages=[
-                # {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": BRAINSTORM.format(input_json=message)},
-            ],
-            model="llama-3.2-90b-vision-preview",
-            temperature=0,
-            max_tokens=1024,  # Allow sufficient tokens
-            top_p=1,
-            stream=True,
-        )
 
-        # Stream the incremental responses from the model
-        for chunk in stream:
-            if chunk.choices[0].delta and chunk.choices[0].delta.content:
-                yield chunk.choices[0].delta.content
-            else:
-                await asyncio.sleep(0.1)  # Pause to simulate streaming behavior
-
-    except Exception as e:
-        yield f"Error: {str(e)}"
 
 async def async_streamer(generator):
     try:
