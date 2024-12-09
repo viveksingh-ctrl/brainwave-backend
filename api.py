@@ -107,6 +107,7 @@ async def async_streamer(generator):
         chunk_size = None  
         random_number = str(uuid.uuid4())
         for chunk in generator.iter_content(chunk_size=chunk_size):
+            print(chunk, ' bow bow')
             data = chunk.decode("utf-8").split("data: ")
             for dictionary_string in data:
                 if dictionary_string == "":
@@ -123,8 +124,9 @@ async def async_streamer(generator):
                 dictionary_string = dictionary_string.replace("\n", "")
                 try:
                     json_data = json.loads(dictionary_string)
+                    print(json_data, ' ham yaha aye')
                     if "content" in json_data["choices"][0]["delta"]:
-                        print(json_data["choices"][0]["delta"]["content"])
+                        # print(json_data["choices"][0]["delta"]["content"])
                         yield json_data["choices"][0]["delta"]["content"]
                         # response_output = {
                         #     "id": random_number,
@@ -137,6 +139,7 @@ async def async_streamer(generator):
                     continue
             await asyncio.sleep(0.1)
     except asyncio.CancelledError as e:
+        print(e, ' billo raani')
         pass
 
 INPUT_ = content_model = {
@@ -311,23 +314,20 @@ message_ = {
         }
 # Define the FastAPI endpoint
 @app.post("/chat")
-async def chat(request: ChatRequest, action = Header('summarize')):
+async def chat(request: ChatRequest, action = Header('grammar')):
     message = request.message
+    with open('./rte_ai.json', 'r') as f:
+        data = json.load(f)
     if action == 'summarize':
-        prompt = SUMMARIZE.format(input_text = message)
+        prompt = SUMMARIZE.format(input_text = data)
     elif action == 'brainstorm':
-        prompt = BRAINSTORM.format(input_text = message)
+        prompt = BRAINSTORM.format(input_text = message, example_json = data)
 
     elif action == 'grammar':
-        prompt = GRAMMAR.format(input_text = message)
-
+        prompt = GRAMMAR.format(input_text = data)
+    response = llm.answer(query = prompt, model = 'gpt-4-turbo')
     # Check if the message is valid
-    if not message:
-        raise HTTPException(status_code=400, detail="Message cannot be empty")
-
-    # Return a streaming response
-    return StreamingResponse(stream_groq_response(prompt), media_type="text/plain")
-
+    return StreamingResponse(async_streamer(response), media_type="text/plain")
 @app.get("/templates")
 async def create_document(request: Request):
     """Create a new document."""
