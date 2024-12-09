@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 from fastapi.responses import StreamingResponse
 from extras import BLOG_CONTENT_TYPE, RTE_CONTENT
-from prompts import ENTRY_MAPPER, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
+from prompts import ENTRY_MAPPER, GENERATE_FROM_TEMPLATE_V1, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
 import asyncio
 from pymongo import MongoClient
 import json
@@ -74,7 +74,8 @@ client = Groq(api_key=groq_api_key)
 
 # Define request body structure
 class ChatRequest(BaseModel):
-    message: str
+    schema: str
+    query: str
 
 # Define a generator function for streaming the response
 async def stream_groq_response(message: str, action: str = Header('summarize')):
@@ -285,13 +286,19 @@ async def generate_rte(request: ChatRequest):
 
 @app.post("/generate-from-template")
 async def mapper(request: ChatRequest):
-    time.sleep(10)
+    schema = request.schema 
+    query = request.query
+    # time.sleep(10)
     # prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
     # response = llm.answer(query = prompt, model = 'gpt-4')
-    with open('./rte_ai.json', 'r') as f:
-        data = json.load(f)
-    return data
-    
+    # with open('./content-type.json', 'r') as f:
+    #     data = json.load(f)
+
+    prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = schema, query = query)
+    start = time.time()
+    print(prompt)
+    response = llm.answer(query = prompt, model = 'gpt-4-turbo')
+    return StreamingResponse(async_streamer(response), media_type="text/plain")    
     # return StreamingResponse(async_streamer(response), media_type="text/plain")
 
 message_ = {
