@@ -1,11 +1,10 @@
 from fastapi import FastAPI, HTTPException, Header, Request
 from pydantic import BaseModel
-from groq import Groq
 from dotenv import load_dotenv
 import os
 from fastapi.responses import StreamingResponse
-from extras import BLOG_CONTENT_TYPE, RTE_CONTENT
-from prompts import ENTRY_MAPPER, GENERATE_FROM_TEMPLATE_V1, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
+from extras import RTE_CONTENT
+from prompts import GENERATE_FROM_TEMPLATE_V1, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM
 import asyncio
 from pymongo import MongoClient
 import json
@@ -60,48 +59,21 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers
 )
-# Initialize Groq client
-groq_api_key = os.environ.get("GROQ_API_KEY")
-if not groq_api_key:
-    raise ValueError("GROQ_API_KEY is not set in the environment")
+
 
 def serialize_document(doc):
     """Convert MongoDB document to JSON serializable format."""
     doc["_id"] = str(doc["_id"])
     return doc
 
-client = Groq(api_key=groq_api_key)
 
 # Define request body structure
 class ChatRequest(BaseModel):
-    schema: str
+    content_type: str
     query: str
 
 # Define a generator function for streaming the response
-async def stream_groq_response(message: str, action: str = Header('summarize')):
-    try:
-        # Create a chat completion request to Groq
-        stream = client.chat.completions.create(
-            messages=[
-                # {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": BRAINSTORM.format(input_json=message)},
-            ],
-            model="llama-3.2-90b-vision-preview",
-            temperature=0,
-            max_tokens=1024,  # Allow sufficient tokens
-            top_p=1,
-            stream=True,
-        )
 
-        # Stream the incremental responses from the model
-        for chunk in stream:
-            if chunk.choices[0].delta and chunk.choices[0].delta.content:
-                yield chunk.choices[0].delta.content
-            else:
-                await asyncio.sleep(0.1)  # Pause to simulate streaming behavior
-
-    except Exception as e:
-        yield f"Error: {str(e)}"
 
 async def async_streamer(generator):
     try:
@@ -286,7 +258,7 @@ async def generate_rte(request: ChatRequest):
 
 @app.post("/generate-from-template")
 async def mapper(request: ChatRequest):
-    schema = request.schema 
+    content_type = request.content_type 
     query = request.query
     # time.sleep(10)
     # prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
@@ -294,8 +266,7 @@ async def mapper(request: ChatRequest):
     # with open('./content-type.json', 'r') as f:
     #     data = json.load(f)
 
-    prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = schema, query = query)
-    start = time.time()
+    prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = content_type, query = query)
     print(prompt)
     response = llm.answer(query = prompt, model = 'gpt-4-turbo')
     return StreamingResponse(async_streamer(response), media_type="text/plain")    
