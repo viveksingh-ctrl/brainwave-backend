@@ -200,19 +200,57 @@ Detailed Steps for LLM:
 '''
 
 GENERATE_FROM_TEMPLATE_V1 = '''
-Use this as a starting point, but remember to incorporate all fields from the provided schema into a single RTE array that resembles a webpage.
+You are a highly skilled assistant proficient in converting an entire content type schema into a single, cohesive RTE (Rich Text Editor) JSON output that must be compatible with Slate.js. The final output should look like a fully rendered, realistic webpage, integrating all fields defined in the given content type schema into one unified RTE structure. The RTE output must follow the provided RTE format guidelines and also be structured so that it can be interpreted by Slate.js-based editors.
 
-No Other Output:
+Instructions:
+
+Content Type Schema (To Be Provided by User):
+I will give you a content type schema containing various fields (e.g., title, date, featured image, body, related posts, comments, social share, SEO fields, etc.). You must read the schema and convert all these fields into a single JSON RTE array.
+
+Unified RTE Structure:
+
+Do not produce a traditional JSON object with separate fields.
+Combine all fields into one continuous RTE JSON structure that presents a fully realized webpage.
+For example:
+The title field should appear as an h1 heading.
+The date might be an h2 or a paragraph below the title.
+The featured image could be an image node (if supported) or a paragraph containing the image URL.
+The body should appear as multiple paragraphs, possibly additional headings (h2, h3), bold and italic text inline, and maybe a list.
+Related posts can appear as a list of links at the end.
+Comments could appear as a comments section, maybe a heading with paragraphs or a representation of a form.
+Social share might appear as a set of links or icons at the bottom.
+SEO fields—usually hidden—should still be included, perhaps as a final paragraph mentioning meta info or keywords.
+The result should feel like a coherent, narrative webpage that weaves all fields into one reading experience.
+
+RTE Format & Slate.js Compatibility:
+
+The final output must be a single JSON array starting with a doc node.
+Each node should have:
+A type field (e.g., "doc", "h1", "p", "ul", "li", "img", etc.).
+An attrs object (even if empty).
+A uid field with a unique identifier.
+A children array, which can contain text nodes (with "text") or other elements.
+Include various formatting features:
+Headings (h1 for title, possibly h2/h3 for sections)
+Bold and italic text inline
+At least one list (ul or ol) with multiple items.
+Ensure the structure is compatible with Slate.js.
+For instance, maintain a hierarchical node structure that Slate can interpret, and keep formatting attributes on text nodes.
+Realistic and Detailed Content:
+
+Do not produce short, placeholder text.
+Make the content read as if it's a genuine webpage: descriptive headings, meaningful paragraphs, contextually relevant formatting, and logically placed lists.
+The final narrative should feel like a natural webpage derived from the schema rather than dummy data.
+No Additional Output:
 
 The final answer should contain only the RTE JSON array.
-Do not include the schema or any explanation, only the final RTE content.
+Do not include the schema or any explanations in the final output—just the constructed RTE JSON.
 Strictness:
 
 Follow these instructions exactly.
-The final RTE should look like a webpage constructed entirely of RTE nodes, reflecting all fields from the schema.
-Your Task: When I provide the content type schema, produce one single RTE JSON array representing the entire webpage. Incorporate all fields as described. Output nothing else.
+The final RTE should resemble a webpage that Slate.js can interpret, incorporating all fields from the schema in a cohesive manner.
+Example RTE Snippet (For Reference Only):
 
-Follow this reference structure (adapt as needed):
 {{
     "_id": "6748e6ce8f3808b2ee51b4b8",
     "author": "Meet Makwana",
@@ -772,26 +810,22 @@ Follow this reference structure (adapt as needed):
     "title": "Exploring the World of Content Management Systems",
     "uid": "csnSCPz1EMb3T8SZ"
 }}
-Use this as a starting point, but remember to incorporate all fields from the provided schema into a single RTE array that resembles a webpage.
+Use the above snippet as a structural guide only. Your final output should be more extensive, reflect the entire schema, and feature realistic, narrative content.
 
-No Other Output:
-
-The final answer should contain only the RTE JSON array.
-Do not include the schema or any explanation, only the final RTE content.
-Strictness:
-
-Follow these instructions exactly.
-The final RTE should look like a webpage constructed entirely of RTE nodes, reflecting all fields from the schema.
-Your Task: When I provide the content type schema, produce one single RTE JSON array representing the entire webpage. Incorporate all fields as described. Output nothing else.
-Given below is an example of the content-type 
+Your Task: When I provide the content type schema, produce one single RTE JSON array representing the entire webpage. Incorporate all fields as described, ensure Slate.js compatibility, and output nothing else.
+Given below is the content-type whose fields needs to be included strictly with realistic and long content in each field
 {content_type}
 
 and this is the query 
 {query}
 
-VERY IMPORTANT NOTE : SINCE THIS OUTPUT IS PARSED IN FRONTEND, 
-GIVE THE OUTPUT IN JSON ONLY STARTING WITH {{ AND ENDING WITH }}
-AND MAKE SURE TO NOT ADD ANYTHING ELSE OTHER THAN THE JSON RESPONSE
+VERY IMPORTANT NOTE : 
+ALL BELOW INSTRUCTIONS SHOUL BE FOLLOWED STRICTLY
+AND THE OUTPUT SHOULD NOT GIVE SLATE JS INCOMPATIBLE ERROR ADD attrs WHEREVER NECESSARY TO AVOID THIS ERROR
+AND I SOULD NOT SEE ANY BROKEN IMAGES OR ASSETS, USE ALL FIELDS FROM CONTENT TYPE SKIP NONE STRICTLY
+AND NO TEXT OTHER THAN THE COMPLETE JSON AS OUTPUT IS THE MOST IMPORTANT THING AND GENERATE REALISTIC CONTENT FOR EACH FIELD AND TEXT CONTENT SHOULD BE BIG ENOUGH
+SINCE THIS OUTPUT IS PARSED IN FRONTEND, 
+GIVE THE OUTPUT IN JSON ONLY STARTING WITH {{ AND ENDING WITH }} NOTHING ELSE NO TEXT NOTHING WRITTEN EXPECT THE JSON
 '''
 
 MANUAL = '''

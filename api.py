@@ -264,15 +264,15 @@ async def mapper(request: ChatRequest):
     # prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
     # response = llm.answer(query = prompt, model = 'gpt-4')
     # with open('./content-type.json', 'r') as f:
-    #     data = json.load(f)
+    #     content_type = json.load(f)
 
     prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = content_type, query = query)
     print(prompt)
+    # prompt = 'hi'
     response = llm.answer(query = prompt, model = 'gpt-4-turbo')
-    return response
-    # return StreamingResponse(async_streamer(response), media_type="text/plain")    
-    # return StreamingResponse(async_streamer(response), media_type="text/plain")
-
+    response = json.loads(response.content.decode('utf-8'))
+    return response['choices'][0]['message']['content']
+    
 message_ = {
             "type": "doc",
             "attrs": {},

@@ -39,6 +39,6 @@ class ChatGPTLLM:
         )
 
         response = requests.request(
-            "POST", self.url, headers=self.headers, data=payload, stream=True
+            "POST", self.url, headers=self.headers, data=payload, stream=False
         )
         return response
