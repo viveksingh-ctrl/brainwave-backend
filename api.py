@@ -3,8 +3,8 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
 from fastapi.responses import StreamingResponse
-from extras import RTE_CONTENT
-from prompts import GENERATE_FROM_TEMPLATE_V1, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM
+from extras import BLOG_CONTENT_TYPE, RTE_CONTENT
+from prompts import GENERATE_FROM_TEMPLATE_V1, GENERATE_FROM_TEMPLATE_V2, GENERATE_RTE, GRAMMAR, SUMMARIZE, BRAINSTORM, TEMPLATE_RTE
 import asyncio
 from pymongo import MongoClient
 import json
@@ -71,6 +71,9 @@ def serialize_document(doc):
 class ChatRequest(BaseModel):
     content_type: str
     query: str
+
+class EntryMapper(BaseModel):
+    rte_content: str
 
 # Define a generator function for streaming the response
 
@@ -260,18 +263,52 @@ async def generate_rte(request: ChatRequest):
 async def mapper(request: ChatRequest):
     content_type = request.content_type 
     query = request.query
-    # time.sleep(10)
     # prompt = TEMPLATE_RTE.format(content_model = json.dumps(BLOG_CONTENT_TYPE), query = request.message)
     # response = llm.answer(query = prompt, model = 'gpt-4')
     # with open('./content-type.json', 'r') as f:
-    #     data = json.load(f)
+    #     content_type = json.load(f)
 
     prompt = GENERATE_FROM_TEMPLATE_V1.format(content_type = content_type, query = query)
     print(prompt)
+    # prompt = 'hi'
     response = llm.answer(query = prompt, model = 'gpt-4-turbo')
-    return response
+    response = json.loads(response.content.decode('utf-8'))
+    return response['choices'][0]['message']['content']
+    # --------------------
+    # with open('./entry.json', 'r') as f:
+    #     entry = json.load(f)
+
+    # with open('./res2.json', 'r') as f:
+    #     res1 = json.load(f)
+
+    # prompt = GENERATE_FROM_TEMPLATE_V2.format(entry_contentstack_example = entry, res1 = res1)
+    # print(prompt)
+    # # prompt = 'hi'
+    # response = llm.answer(query = prompt, model = 'gpt-4-turbo')
+    # response = json.loads(response.content.decode('utf-8'))
+    # return response['choices'][0]['message']['content']
+
+    # response = json.load(response.content)
+
+    # return response["choices"][0]["message"]["content"]
     # return StreamingResponse(async_streamer(response), media_type="text/plain")    
     # return StreamingResponse(async_streamer(response), media_type="text/plain")
+
+@app.post("/map-to-entry")
+async def mapper(request: EntryMapper):
+    rte_json = request.rte_content 
+    with open('./res2.json', 'r') as f:
+        rte_json = json.load(f)
+    with open('./entry.json', 'r') as f:
+        example_entry = json.load(f)
+    prompt = GENERATE_FROM_TEMPLATE_V2.format(entry_contentstack_example = example_entry, res1 = rte_json)
+    print(prompt)
+    # prompt = 'hi'
+    response = llm.answer(query = prompt, model = 'gpt-4-turbo')
+    response = json.loads(response.content.decode('utf-8'))
+    return response['choices'][0]['message']['content']
+    
+
 
 message_ = {
             "type": "doc",
