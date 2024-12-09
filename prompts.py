@@ -200,24 +200,19 @@ Detailed Steps for LLM:
 '''
 
 GENERATE_FROM_TEMPLATE_V1 = '''
-You are a highly skilled assistant with expertise in generating structured JSON data from a given content type schema and producing Rich Text Editor (RTE) output in Contentstack-compatible JSON format.
+Use this as a starting point, but remember to incorporate all fields from the provided schema into a single RTE array that resembles a webpage.
 
-Instructions:
+No Other Output:
 
-Content Type Schema Input (To Be Provided by User):
-I will provide you with a JSON definition of a content type schema. This schema will include multiple fields (text, reference, date, group, global fields, etc.). Your primary task is to generate content data (a JSON object) that aligns with the provided schema.
+The final answer should contain only the RTE JSON array.
+Do not include the schema or any explanation, only the final RTE content.
+Strictness:
 
-Important: The content type structure JSON will be provided in the conversation. Do not assume any default schema; rely only on what is given. The schema could be similar to the previously shown "Blog Landing Page" structure, but it might be different. Use the fields and structure as specified in the schema you receive.
+Follow these instructions exactly.
+The final RTE should look like a webpage constructed entirely of RTE nodes, reflecting all fields from the schema.
+Your Task: When I provide the content type schema, produce one single RTE JSON array representing the entire webpage. Incorporate all fields as described. Output nothing else.
 
-RTE (Rich Text Editor) Field Handling:
-If the provided schema includes fields that support a JSON RTE, you must produce that field's value as a structured JSON array following Contentstack's JSON RTE format. Your RTE content should demonstrate a variety of formatting, including:
-
-Headings (e.g., h1, h2)
-Bold and italic text
-One or more paragraphs
-A list (ordered or unordered) with multiple items
-Below is a reference snippet for the RTE format. This is just an example—adapt your output to match the schema given:
-
+Follow this reference structure (adapt as needed):
 [
   {{
     "type": "doc",
@@ -269,32 +264,26 @@ Below is a reference snippet for the RTE format. This is just an example—adapt
     ]
   }}
 ]
+Use this as a starting point, but remember to incorporate all fields from the provided schema into a single RTE array that resembles a webpage.
 
-Required Output:
+No Other Output:
 
-After I provide the content type schema JSON, you should:
-Generate a single JSON object that strictly follows the schema.
-Populate all fields with realistic example values (e.g., text fields with meaningful strings, URLs for image/file fields, ISO-8601 date formats for date fields, etc.).
-If reference fields are present, use placeholder UIDs for referenced entries.
-If a date field exists, ensure it is in a valid ISO-8601 format.
-If file/image fields exist, provide a plausible placeholder URL.
-If boolean fields exist, provide a relevant boolean value.
-For SEO or other metadata fields, include sensible placeholder meta titles, descriptions, keywords, and boolean flags as applicable.
-General Requirements:
+The final answer should contain only the RTE JSON array.
+Do not include the schema or any explanation, only the final RTE content.
+Strictness:
 
-The final answer should be a single valid JSON object that strictly follows the provided schema (once I give it to you).
-Maintain proper indentation and formatting.
-The examples given above (like the blog landing page schema or the RTE snippet) are for reference only. You will adapt your final output based on the actual schema I provide.
-Use unique uid values for RTE nodes.
-Your Task:
-When I provide a content type schema JSON in this conversation, you will use the instructions above to generate a well-structured, fully populated JSON entry that matches that schema, including properly formatted RTE content (if required by the schema).
-
+Follow these instructions exactly.
+The final RTE should look like a webpage constructed entirely of RTE nodes, reflecting all fields from the schema.
+Your Task: When I provide the content type schema, produce one single RTE JSON array representing the entire webpage. Incorporate all fields as described. Output nothing else.
 Given below is an example of the content-type 
 {content_type}
 
 and this is the query 
 {query}
-SINCE THIS OUTPUT IS PARSED IN FRONTEND, GIVE THE OUTPUT IN JSON ONLY STARTING WITH {{ AND ENDING WITH }}
+
+VERY IMPORTANT NOTE : SINCE THIS OUTPUT IS PARSED IN FRONTEND, 
+GIVE THE OUTPUT IN JSON ONLY STARTING WITH {{ AND ENDING WITH }}
+AND MAKE SURE TO NOT ADD ANYTHING ELSE OTHER THAN THE JSON RESPONSE
 '''
 
 MANUAL = '''
