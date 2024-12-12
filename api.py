@@ -297,8 +297,8 @@ async def mapper(request: ChatRequest):
 @app.post("/map-to-entry")
 async def mapper(request: EntryMapper):
     rte_json = request.rte_content 
-    with open('./res2.json', 'r') as f:
-        rte_json = json.load(f)
+    # with open('./res2.json', 'r') as f:
+    #     rte_json = json.load(f)
     with open('./entry.json', 'r') as f:
         example_entry = json.load(f)
     prompt = GENERATE_FROM_TEMPLATE_V2.format(entry_contentstack_example = example_entry, res1 = rte_json)
