@@ -18,3 +18,5 @@ pip install -r requirements.txt
 ```bash
 uvicorn api:app --reload
 ```
+
+4. Docs would be available on http://localhost:8000/docs#/ 
